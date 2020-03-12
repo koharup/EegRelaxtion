@@ -40,7 +40,7 @@
         android:layout_weight="0.07"
         android:background="@drawable/background_rounded_corners"
         android:gravity="center"
-        android:onClick="start"
+        android:onClick="imageList"
         android:text="開始"
         android:textColor="#FFFFFF" />
 

@@ -16,8 +16,11 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".ConnectMuseActivity"></activity>
-        <activity android:name=".ShowMuseDataActivity"></activity>
+        <activity android:name=".ResultActivity"></activity>
+        <activity android:name=".ShowActivity" />
+        <activity android:name=".ImageListActivity" />
+        <activity android:name=".ConnectMuseActivity" />
+        <activity android:name=".ShowMuseDataActivity" />
         <activity android:name=".ImageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
