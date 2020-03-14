@@ -3,8 +3,11 @@ package com.sano.picchi.muse.helper;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.graphics.Color;
 import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
 import android.util.Log;
+import android.widget.Button;
 
 import com.sano.picchi.muse.model.MuseResults;
 
@@ -75,17 +78,28 @@ public class ShowDataHelper {
     public Runnable processEEG = new Runnable() {
         @Override
         public void run() {
+
             if (eegBufferQueue.size() >= SAMPLE_RATE) {
                 writeToFirstSegment(rawEEG);
                 double[][] feat = rawToFeature(deep_copy_2d(rawEEG));
                 convert(feat);
-
                 lister.onGetData(medSm.getResult());
                 Log.d(TAG, "Progress:" + medSm.getResult());
-
                 shift(rawEEG);
             }
             handler.postDelayed(processEEG, 100);
+
+            /*if (medSm.getResult() >= 0.6){
+                Log.d("ProgressTest","高い");
+                ConstraintLayout showBack = new ConstraintLayout(context);
+                showBack.setBackgroundColor(Color.rgb(255, 0, 0));
+
+            }else if (medSm.getResult() >= 0.4){
+                Log.d("ProgressTest","低い");
+
+            }else{
+                Log.d("ProgressTest","どちらでもない");
+            }*/
         }
     };
 

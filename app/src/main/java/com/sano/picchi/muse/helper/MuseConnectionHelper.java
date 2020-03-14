@@ -73,7 +73,7 @@ public class MuseConnectionHelper {
         this.connectionListener = connectionListener;
     }
 
-    public final void connect_to_muse() {
+    public final void connectTomMuse() {
         muse.unregisterAllListeners();
         muse.registerConnectionListener(connectionListener);
         muse.registerDataListener(dataListener, MuseDataPacketType.EEG);
@@ -173,7 +173,7 @@ public class MuseConnectionHelper {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                museConnectionLister.onGetMuseStatu(muse_status);
+                museConnectionLister.onChangeMuseStatu(muse_status);
             }
         });
 
@@ -189,7 +189,7 @@ public class MuseConnectionHelper {
                     @Override
                     public void run() {
                         if (muse != null)
-                            connect_to_muse();
+                            connectTomMuse();
                     }
                 }, 500);
             }
@@ -199,7 +199,7 @@ public class MuseConnectionHelper {
         } else if (current == ConnectionState.CONNECTED) {
             reconnectCount = 0; //reset the count
             MUSE_CONNECTED = true;
-
+            handler.post(sh.processEEG);
         }
     }
 
@@ -236,7 +236,7 @@ public class MuseConnectionHelper {
                 break;
             case HSI_PRECISION:
                 assert (alphaBuffer.length >= n);
-                museConnectionLister.onGetMuseData(getHSIPrecision(p));
+                museConnectionLister.onGetMuseRawData(getHSIPrecision(p));
                 break;
             case BATTERY:
             case DRL_REF:
@@ -310,7 +310,7 @@ public class MuseConnectionHelper {
     }
 
     public interface MuseConnectionLister{
-        void onGetMuseData(double[] hsiBuffer);
-        void onGetMuseStatu(String museStatus);
+        void onGetMuseRawData(double[] hsiBuffer);
+        void onChangeMuseStatu(String museStatus);
     }
 }

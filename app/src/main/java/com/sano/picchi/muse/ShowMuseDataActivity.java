@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.choosemuse.libmuse.Muse;
@@ -32,6 +34,7 @@ public class ShowMuseDataActivity extends Activity implements ShowDataHelper.Sho
     TextView hsi2;
     TextView hsi3;
     TextView hsi4;
+    Button button4;
 
     int graphXValue = 0;
     LineGraphSeries<DataPoint> mSeries;
@@ -42,6 +45,7 @@ public class ShowMuseDataActivity extends Activity implements ShowDataHelper.Sho
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eeg_realtime_classifier);
         museDataTextView = findViewById(R.id.muse_data);
+        button4 = findViewById(R.id.button4);
 
         manager = MuseManagerAndroid.getInstance();
         manager.setContext(this);
@@ -62,6 +66,7 @@ public class ShowMuseDataActivity extends Activity implements ShowDataHelper.Sho
         hsi3 = findViewById(R.id.hsi3);
         hsi4 = findViewById(R.id.hsi4);
 
+
         // Set up Graph
         GraphView graph = (GraphView) findViewById(R.id.graph);
         graph.getViewport().setYAxisBoundsManual(true);
@@ -73,12 +78,11 @@ public class ShowMuseDataActivity extends Activity implements ShowDataHelper.Sho
         mSeries = new LineGraphSeries<>();
         graph.addSeries(mSeries);
         museStatusTextView = findViewById(R.id.tv_muse_status);
-        handler.post(sh.processEEG);
     }
 
     private void connectToMuse(Muse muse) {
         museConnectionHelper.setMuse(muse);
-        museConnectionHelper.connect_to_muse();
+        museConnectionHelper.connectTomMuse();
     }
 
     @Override
@@ -88,15 +92,20 @@ public class ShowMuseDataActivity extends Activity implements ShowDataHelper.Sho
     }
 
     @Override
-    public void onGetMuseData(double[] hsiBuffer) {
+    public void onGetMuseRawData(double[] hsiBuffer) {
         hsi1.setText(String.valueOf(hsiBuffer[0]));
         hsi2.setText(String.valueOf(hsiBuffer[1]));
         hsi3.setText(String.valueOf(hsiBuffer[2]));
         hsi4.setText(String.valueOf(hsiBuffer[3]));
     }
 
+    public void start(View view){
+        Intent intent = new Intent(this,ImageListActivity.class);
+        startActivity(intent);
+    }
+
     @Override
-    public void onGetMuseStatu(String museStatus) {
+    public void onChangeMuseStatu(String museStatus) {
         museStatusTextView.setText(museStatus);
     }
 }

@@ -6,6 +6,14 @@
     android:paddingLeft="10dp"
     android:paddingRight="10dp">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16sp"
+        android:text="使用するMuseを選択してください"
+        android:textSize="18sp" />
+
     <ListView
         android:id="@+id/museList"
         android:layout_width="match_parent"
@@ -22,8 +30,11 @@
             android:id="@+id/start"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="16sp"
             android:layout_weight="1"
-            android:text="Refresh" />
+            android:background="@drawable/background_rounded_corners"
+            android:text="serch"
+            android:textColor="#FFFFFF" />
 
 
     </LinearLayout>

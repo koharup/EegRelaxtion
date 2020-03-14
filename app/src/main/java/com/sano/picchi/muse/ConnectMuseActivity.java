@@ -78,7 +78,7 @@ public class ConnectMuseActivity extends Activity {
                     Log.d(TAG, "No available muse to connect to!");
                 } else {
                     Log.d(TAG, "pos:" + position);
-                    Intent intent = new Intent(getApplicationContext(), ShowMuseDataActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), ImageListActivity.class);
                     intent.putExtra("pos", position);
                     startActivity(intent);
                 }
